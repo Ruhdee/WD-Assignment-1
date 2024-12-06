@@ -38,14 +38,16 @@ body {
     top: 0px;
     border: 1px solid;
     border-color: black;
-    padding: 5px;
     background-color: white;
     width: 100%;
     text-align: center;
-    margin: 0px;
     font-size: larger;
     font-weight: 700;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
 }
 .container{
     display: flex;
