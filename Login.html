@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDSC Login</title>
+    <style>
+        body {
+            background-image: url("pics/back.jpg");
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 350px;
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 10px;
+            color: green;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 70%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: beige;
+            color: #000;
+            font-weight: bold;
+        }
+
+        input::placeholder {
+            color: #888;
+            font-weight: normal;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 50%;
+            padding: 12px;
+            background-color: blue;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #FABB04;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 0.8em;
+            color: #000;
+        }
+
+        .toggle {
+            cursor: pointer;
+            color: #00adb5;
+            text-decoration: underline;
+        }
+
+        .hidden {
+            visibility: hidden;
+            position: absolute;
+        }
+
+        .visible {
+            visibility: visible;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2 id="form-title">Register</h2>
+        <div id="register-form" class="visible">
+            <input type="text" id="reg-name" placeholder="Enter your name" required>
+            <input type="email" id="reg-email" placeholder="Enter your email" required>
+            <input type="password" id="reg-password" placeholder="Enter your password" required>
+            <input type="password" id="reg-cpassword" placeholder="Confirm your password" required>
+            <button onclick="registerUser()" id="register-btn">Register</button>
+        </div>
+
+        <div id="login-form" class="hidden">
+            <input type="email" id="login-email" placeholder="Enter your email" required>
+            <input type="password" id="login-password" placeholder="Enter your password" required>
+            <button onclick="loginUser()" id="login-btn">Login</button>
+        </div>
+
+        <div class="footer">
+            <span id="toggle-text">Already have an account? <span class="toggle" onclick="toggleForm()">Login
+                    here</span></span>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm() {
+            const formTitle = document.getElementById('form-title');
+            const registerForm = document.getElementById('register-form');
+            const loginForm = document.getElementById('login-form');
+            const toggleText = document.getElementById('toggle-text');
+
+            if (registerForm.classList.contains('visible')) {
+                formTitle.textContent = 'Login';
+                registerForm.classList.remove('visible');
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                loginForm.classList.add('visible');
+                toggleText.innerHTML = "Don't have an account? <span class='toggle' onclick='toggleForm()'>Register here</span>";
+            } else {
+                formTitle.textContent = 'Register';
+                loginForm.classList.remove('visible');
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                registerForm.classList.add('visible');
+                toggleText.innerHTML = "Already have an account? <span class='toggle' onclick='toggleForm()'>Login here</span>";
+            }
+        }
+
+        function registerUser() {
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const cpassword = document.getElementById('reg-cpassword').value;
+
+            if (name && email && password && password == cpassword) {
+                const userData = { name, email, password };
+                localStorage.setItem(email, JSON.stringify(userData));
+                alert('Registration successful! You can now log in.');
+                toggleForm();
+            } 
+            else if(password!=cpassword){
+                alert('Confirm password does not match password.');
+            }else {
+                alert('Please fill out all fields.');
+            }
+        }
+
+        function loginUser() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const storedUser = JSON.parse(localStorage.getItem(email));
+
+            if (storedUser && storedUser.password === password) {
+                alert(`Welcome back, ${storedUser.name}! Redirecting to home page.`);
+                window.location.href = 'GDSC.html';
+
+            } else {
+                alert('Incorrect email or password.');
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>
