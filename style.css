@@ -28,6 +28,8 @@ html1 {
 }
 
 #textdiv {
+    display: flex;
+    justify-content: center;
     width: 80vw;
     margin: 30px auto;
     padding: 20px;
@@ -349,4 +351,10 @@ iframe {
     width: 100vw;
     height: 100vh;
     pointer-events: none;
+}
+#sendemailbtn{
+    background-color: #fff;
+    width: 200px;
+    height: 30px;
+   
 }
