@@ -29,7 +29,8 @@ html1 {
 
 #textdiv {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 80vw;
     margin: 30px auto;
     padding: 20px;
